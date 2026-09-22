@@ -1,0 +1,18 @@
+{
+  "result": {
+    "verdict": "BUY NOW",
+    "rationale": "Current price is within 2% of the all-time historic low recorded during previous holiday sales. With supply constraints on this model, further discounts before Prime Day are highly unlikely.",
+    "deal_integrity_score": 94,
+    "pros": [
+      "Authentic 22% markdown off true MSRP",
+      "Industry-leading active noise cancellation",
+      "Exceptional 30-hour battery life"
+    ],
+    "cons": [
+      "Non-folding headband design",
+      "Microfiber earcups can warm up"
+    ],
+    "recommended_target_price": 329.99,
+    "price_trend_prediction": "At historic low"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "result": {
+    "verdict": "WAIT",
+    "rationale": "Apple hardware typically receives predictable seasonal markdowns during the upcoming Back-to-School and autumn refresh window. Holding off for 3 to 4 weeks could yield an additional $80 to $120 in savings.",
+    "deal_integrity_score": 78,
+    "pros": [
+      "Stellar M3 power efficiency & battery",
+      "Stunning Liquid Retina display",
+      "Silent fanless aluminum unibody"
+    ],
+    "cons": [
+      "Base model limited to 8GB unified memory",
+      "MSRP inflated slightly ahead of promotions"
+    ],
+    "recommended_target_price": 949.00,
+    "price_trend_prediction": "Likely to drop within 30 days"
+  }
+}

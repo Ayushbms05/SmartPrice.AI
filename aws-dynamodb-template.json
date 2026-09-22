@@ -1,0 +1,93 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "SmartPrice AI - AWS DynamoDB Table Specification for Tracked Products and Alerts",
+  "Resources": {
+    "SmartPriceProductsTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "SmartPriceProducts",
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "userId",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "productId",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "alertEnabled",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "currentPrice",
+            "AttributeType": "N"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "userId",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "productId",
+            "KeyType": "RANGE"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "AlertPriceIndex",
+            "KeySchema": [
+              {
+                "AttributeName": "alertEnabled",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "currentPrice",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          }
+        ],
+        "TimeToLiveSpecification": {
+          "AttributeName": "ttl",
+          "Enabled": true
+        },
+        "SSESpecification": {
+          "SSEEnabled": true
+        },
+        "PointInTimeRecoverySpecification": {
+          "PointInTimeRecoveryEnabled": true
+        },
+        "Tags": [
+          {
+            "Key": "Application",
+            "Value": "SmartPrice-AI"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "SmartPriceProductsTableArn": {
+      "Description": "ARN of the SmartPrice Products DynamoDB Table",
+      "Value": {
+        "Fn::GetAtt": [
+          "SmartPriceProductsTable",
+          "Arn"
+        ]
+      },
+      "Export": {
+        "Name": "SmartPriceProductsTableArn"
+      }
+    }
+  }
+}
