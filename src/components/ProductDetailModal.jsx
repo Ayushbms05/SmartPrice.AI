@@ -21,6 +21,8 @@ import {
   Info
 } from 'lucide-react';
 
+const API_BASE = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
+
 export default function ProductDetailModal({ 
   product, 
   onClose, 
@@ -154,7 +156,7 @@ export default function ProductDetailModal({
     setAdvisorError('');
 
     try {
-      const resp = await fetch('/api/chat', {
+      const resp = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

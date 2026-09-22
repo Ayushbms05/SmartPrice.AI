@@ -11,6 +11,8 @@ import {
   Lock
 } from 'lucide-react';
 
+const API_BASE = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
+
 export default function SettingsModal({ 
   isOpen, 
   onClose 
@@ -23,7 +25,7 @@ export default function SettingsModal({
   const fetchStatus = async () => {
     setIsLoadingStatus(true);
     try {
-      const res = await fetch('/api/status');
+      const res = await fetch(`${API_BASE}/api/status`);
       if (res.ok) {
         const data = await res.json();
         setSystemStatus(data);

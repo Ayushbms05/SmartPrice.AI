@@ -19,6 +19,8 @@ import {
   Info
 } from 'lucide-react';
 
+const API_BASE = (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '');
+
 export default function App() {
   const [products, setProducts] = useState([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
@@ -39,7 +41,7 @@ export default function App() {
   const fetchProducts = async () => {
     setIsLoadingProducts(true);
     try {
-      const resp = await fetch('/api/products');
+      const resp = await fetch(`${API_BASE}/api/products`);
       if (resp.ok) {
         const data = await resp.json();
         if (data.products) {
@@ -68,7 +70,7 @@ export default function App() {
         setTrackingStep('Running Gemini AI multi-model verdict engine...');
       }, 700);
 
-      const resp = await fetch('/api/products', {
+      const resp = await fetch(`${API_BASE}/api/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -98,7 +100,7 @@ export default function App() {
   // Update Alert Settings
   const handleUpdateAlerts = async (productId, updates) => {
     try {
-      const resp = await fetch(`/api/products/${productId}`, {
+      const resp = await fetch(`${API_BASE}/api/products/${productId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates)
@@ -118,7 +120,7 @@ export default function App() {
   // Simulate Price Drop
   const handleSimulateDrop = async (productId) => {
     try {
-      const resp = await fetch(`/api/products/${productId}/simulate-drop`, {
+      const resp = await fetch(`${API_BASE}/api/products/${productId}/simulate-drop`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -153,7 +155,7 @@ export default function App() {
   const handleDeleteProduct = async (productId) => {
     if (!confirm('Are you sure you want to stop tracking this product?')) return;
     try {
-      const resp = await fetch(`/api/products/${productId}`, {
+      const resp = await fetch(`${API_BASE}/api/products/${productId}`, {
         method: 'DELETE'
       });
       if (resp.ok) {
