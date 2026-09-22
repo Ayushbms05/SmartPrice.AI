@@ -80,9 +80,20 @@ export default function App() {
         })
       });
 
-      const data = await resp.json();
-      if (!resp.ok) {
-        throw new Error(data.detail || 'Failed to track product');
+      let data = null;
+      try {
+        const text = await resp.text();
+        data = text ? JSON.parse(text) : null;
+      } catch (e) {
+        data = null;
+      }
+
+      if (!resp.ok || !data) {
+        await fetchProducts();
+        if (resp.status === 504) {
+          throw new Error('Scraping is processing on the server. Your product will appear on your dashboard shortly.');
+        }
+        throw new Error(data?.detail || `Error tracking product (HTTP ${resp.status}).`);
       }
 
       if (data.product) {

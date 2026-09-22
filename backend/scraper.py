@@ -244,22 +244,22 @@ def scrape_product(url: str) -> Dict[str, Any]:
 
     html_content = ""
     # Fresh scraper session per try (exactly as proven in price_tracker.py)
-    for attempt in range(1, 4):
+    for attempt in range(1, 3):
         try:
             scraper = make_cloudscraper()
             if scraper:
-                resp = scraper.get(url, timeout=20)
+                resp = scraper.get(url, timeout=8)
             else:
-                resp = requests.get(url, headers=headers, timeout=12, allow_redirects=True)
+                resp = requests.get(url, headers=headers, timeout=6, allow_redirects=True)
 
             if resp.status_code == 200 and resp.text:
                 html_content = resp.text
                 break
             elif resp.status_code == 403:
-                time.sleep(random.uniform(0.8, 1.8))
+                time.sleep(random.uniform(0.3, 0.6))
         except Exception:
-            if attempt < 3:
-                time.sleep(random.uniform(0.8, 1.8))
+            if attempt < 2:
+                time.sleep(random.uniform(0.3, 0.6))
 
     if html_content:
         # --- Strategy 1 from price_tracker.py: Structured JSON-LD Data ---
